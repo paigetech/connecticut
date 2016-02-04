@@ -16,7 +16,8 @@
     "mongoose": "latest",
     "morgan": "latest",
     "passport": "latest",
-    "passport-local": "latest"
+    "passport-local": "latest",
+    "twilio": "^3.3.0-edge"
   },
   "engines": {
     "npm": "latest"

@@ -1,5 +1,6 @@
 var Thing = require('./models/thing');  // load the thing mongoose model - change as needed
 var User = require('./models/user');  // load the User mongoose model for passport.js authentication
+var twilio = require('twilio');
 
 module.exports = function(app, passport) {
   // api ---------------------------------------------------------------------
@@ -154,5 +155,26 @@ module.exports = function(app, passport) {
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+  });
+
+  // Twilio routes
+  app.post('/api/twilio', function(req, res, next) {
+    // can pass a var in
+    console.log('message: ' + req.body.message);
+    client.sendMessage( 
+      { to: '+15087409640', from:'+17746437097', body: req.body.message }, 
+        function( err, data ) {
+          console.log( data.body );
+        }
+    );
+  });
+
+  app.post('/message', function (req, res) {
+    var resp = new twilio.TwimlResponse();
+    resp.message('Thanks for subscribing');
+    res.writeHead(200, {
+      'Content-Type': 'text/xml'
+    });
+    res.end(resp.toString());
   });
 };

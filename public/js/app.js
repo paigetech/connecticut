@@ -29,6 +29,10 @@ app.config(function ($routeProvider, $locationProvider) {
     controller: 'ThingFindController',
     templateUrl: 'js/thing/views/thing_id.html'
   })
+  .when('/twilio', {
+    controller: 'TwilioController',
+    templateUrl: 'js/twilio/views/twilio.html'
+  })
   .otherwise({
     controller: 'HomeController',
     templateUrl: 'js/home/views/home.html'
@@ -49,7 +53,7 @@ app.run(function ($rootScope, $location, User, $http) {
         User = data;
         console.log("poop");
       } else {
-        $location.path('/login');
+//        $location.path('/login');
       }
     })
     .error(function (err) {

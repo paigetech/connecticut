@@ -11,6 +11,8 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 var port = process.env.PORT || 3000 // setting up the port
+var twilio = require('twilio');
+client = twilio('AC5906f34bfa5adebfb9768750c5f7c781', '2c867137a0651e2054f349be82bed12e');
 
 // configuration ===============================================================
 mongoose.connect(database.url); 	// connect to mongoDB database on modulus.io
