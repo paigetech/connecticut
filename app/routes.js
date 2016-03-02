@@ -161,8 +161,9 @@ module.exports = function(app, passport) {
   app.post('/api/twilio', function(req, res, next) {
     // can pass a var in
     console.log('message: ' + req.body.message);
+    number = req.body.number;
     client.sendMessage( 
-      { to: '+15087409640', from:'+17746437097', body: req.body.message }, 
+      { to: '+1' + number, from:'+17746437097', body: req.body.message }, 
         function( err, data ) {
           console.log( data.body );
         }

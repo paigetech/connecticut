@@ -6,10 +6,15 @@
     <form name="twilioForm" ng-submit="submit(message)">
       <div class="form-group">
         <label>Message</label>
-        <input type="text" class="form-control" name="message" placeholder="What Message would you like to send?" ng-model="message" required>
+        <input type="text" class="form-control" name="message" placeholder="What Message would you like to send?" ng-model="message.message" required>
+        <label>Message</label>
+        <input type="text" class="form-control" name="number" placeholder="What number shall we send it to? Use a 5551234567 format." ng-model="message.number" required>
       </div>
-      <span ng-show="showErrorAlert" class="alert">
+      <span ng-show="showErrorAlert" class="alert allert-danger">
         <p>There is an error!</p>
+      </span>
+      <span ng-show="success" class="alert alert-success">
+        <strong>{{success}}</strong>
       </span>
       <div>
         <button ng-disabled="submitted" class="btn btn-lg btn-success" type="submit">Send a Message</button>
