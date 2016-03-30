@@ -14,6 +14,24 @@ var port = process.env.PORT || 3000 // setting up the port
 var twilio = require('twilio');
 client = twilio('AC5906f34bfa5adebfb9768750c5f7c781', '2c867137a0651e2054f349be82bed12e');
 
+
+
+//socket
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+  console.log("wooo");
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+    console.log("Message: " + msg);
+  });
+});
+
 // configuration ===============================================================
 mongoose.connect(database.url); 	// connect to mongoDB database on modulus.io
 
@@ -45,7 +63,22 @@ app.get('/*', function(req, res, next) {
   // Just send the index.html for other files to support HTML5Mode
   res.sendFile('/public/index.html', { root: __dirname });
 });
+//allow CORS
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
+
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
 
 // listen (start app with node server.js) ======================================
-app.listen(port);
+//app.listen(port);
 console.log("App listening on port " + port);

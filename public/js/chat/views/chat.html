@@ -1,0 +1,18 @@
+<div class="row">
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        console.log("message: " + msg);
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+      <ul id="messages"><li>start</li></ul>
+      <form action="">
+      <input id="m" autocomplete="off" /><button type="submit">Send</button>
+      </form>
+</div>

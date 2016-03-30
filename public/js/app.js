@@ -33,6 +33,10 @@ app.config(function ($routeProvider, $locationProvider) {
     controller: 'TwilioController',
     templateUrl: 'js/twilio/views/twilio.html'
   })
+  .when('/chat', {
+    controller: 'ChatController',
+    templateUrl: 'js/chat/views/chat.html'
+  })
   .otherwise({
     controller: 'HomeController',
     templateUrl: 'js/home/views/home.html'
