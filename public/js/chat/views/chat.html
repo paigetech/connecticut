@@ -1,23 +1,10 @@
 <div class="row">
-    <script>
-      var socket = io();
-      $('form').submit(function(){
-        console.log($('#name').val());
-        var message = $('#name').val() + ": " + $('#m').val();
-        socket.emit('chat message', message);
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function(msg){
-        console.log("message: " + msg);
-        $('#messages').append($('<li>').text(msg));
-      });
-    </script>
-    <p>User: {{user.email}}</p>
-      <ul id="messages" style="list-style-type: none;"></ul>
-      <form name="thingForm" ng-submit="submit(thing)">
-      <input id="m" autocomplete="off" />
-      <input id="name" hidden ng-model=user.email />
-      <button type="submit">Send</button>
-      </form>
+  <div class="col-xs-6 col-xs-offset-3">
+    <h3>Messages</h3>
+    <p ng-repeat='message in messages'> {{message}}</p>
+
+    <form ng-submit='sendMessage()'>
+      <input ng-model='message' />
+      <input type='submit', value='Send' />
+  </div>
 </div>
