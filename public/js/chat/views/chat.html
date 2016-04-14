@@ -2,7 +2,9 @@
     <script>
       var socket = io();
       $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
+        console.log($('#name').val());
+        var message = $('#name').val() + ": " + $('#m').val();
+        socket.emit('chat message', message);
         $('#m').val('');
         return false;
       });
@@ -11,8 +13,11 @@
         $('#messages').append($('<li>').text(msg));
       });
     </script>
-      <ul id="messages"><li>start</li></ul>
-      <form action="">
-      <input id="m" autocomplete="off" /><button type="submit">Send</button>
+    <p>User: {{user.email}}</p>
+      <ul id="messages" style="list-style-type: none;"></ul>
+      <form name="thingForm" ng-submit="submit(thing)">
+      <input id="m" autocomplete="off" />
+      <input id="name" hidden ng-model=user.email />
+      <button type="submit">Send</button>
       </form>
 </div>

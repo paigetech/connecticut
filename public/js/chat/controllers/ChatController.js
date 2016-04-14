@@ -1,4 +1,7 @@
-app.controller('ChatController', ['$scope', '$http', '$window', 'User', function($scope, $http, $window, User) {
-  $scope.user = User;
+app.controller('ChatController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+
+  $scope.submit = function(thing) {
+    console.log("angular submit");
+  }
 
 }]);
