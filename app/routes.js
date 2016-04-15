@@ -121,6 +121,18 @@ module.exports = function(app, passport) {
     })(req, res, next);
   });
 
+  // get all Users
+  app.get('/api/users', function(req, res) {
+    // use mongoose to get all things from the db
+    User.find(function(err, user) {
+      // if err, send it
+      if (err) {
+        res.send(err);
+      }
+      res.json(user);
+    });
+  });
+
   // process the signup form
   // Express Route with passport authentication and custom callback
   app.post('/api/signup', function(req, res, next) {
