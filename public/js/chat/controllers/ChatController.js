@@ -3,7 +3,11 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
   $scope.messages = [];
   $scope.submit = function(thing) {
     console.log("angular submit");
+    //add logic for saving chat
   }
+
+  //do the user connection via routes?
+  //
   // Socket listeners
   // ================
 
@@ -24,13 +28,27 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
 
   $scope.sendMessage = function () {
     console.log("message: " + $scope.message);
-    this_message = $scope.user.email + ": " + $scope.message;
+    this_message = {
+      email: $scope.user.email,
+      message: $scope.message,
+      target: $scope.target
+    }
     socket.emit('chat message', this_message );
     //change messages to be an array of objects
 
     // clear message box
     $scope.message = '';
   };
+
+  //grabbing users
+  $http.get('/api/users')
+  .success(function (data) {
+    $scope.users = data;
+  })
+  .error(function (err) {
+    console.log('Error: ' + err);
+  });
+  
 
 }]);
 app.factory('socket', function ($rootScope) {

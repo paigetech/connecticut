@@ -1,10 +1,18 @@
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <h3>Messages</h3>
-    <p ng-repeat='message in messages'> {{message}}</p>
-
     <form ng-submit='sendMessage()'>
+      <div ng-repeat='message in messages'>
+        <ul ng-if="message.target === user.email || message.email == user.email">
+          {{message}}
+        </ul>
+      </div>
+
+      <select ng-model="target">
+        <option ng-repeat="user in users">{{user.local.email}}</option>
+      </select>
       <input ng-model='message' />
       <input type='submit', value='Send' />
+      
   </div>
 </div>

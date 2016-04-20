@@ -16,6 +16,7 @@ client = twilio('AC5906f34bfa5adebfb9768750c5f7c781', '2c867137a0651e2054f349be8
 
 
 
+
 //socket
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -25,7 +26,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 io.on('connection', function(socket){
-  console.log("wooo");
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
     console.log("Message: " + msg);
