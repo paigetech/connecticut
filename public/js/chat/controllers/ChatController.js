@@ -29,9 +29,9 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
   $scope.sendMessage = function () {
     console.log("message: " + $scope.message);
     this_message = {
-      email: $scope.user.email,
+      send: $scope.user.email,
       message: $scope.message,
-      target: $scope.target
+      recieve: $scope.target
     }
     socket.emit('chat message', this_message );
     //change messages to be an array of objects
