@@ -1,6 +1,19 @@
 app.controller('ChatController', ['$scope', '$http', '$window', 'socket', function($scope, $http, $window, socket) {
 
   $scope.messages = [];
+  init = function() {
+    $http.get("/api/chats").success(function (data) {
+      //add if
+      //hide super secret back door - q5
+      for (var msg in data) {
+      $scope.messages.push(data[msg]);
+      }
+    })
+    .error(function (err) {
+      console.log('Error: ' + err);
+    });
+  };
+
   $scope.submit = function(thing) {
     console.log("angular submit");
     //add logic for saving chat
@@ -34,7 +47,17 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
       recieve: $scope.target
     }
     socket.emit('chat message', this_message );
-    //change messages to be an array of objects
+
+    $http.post("/api/chat", this_message)
+    .success(function (data, status) {
+      // if successfull redirect to /
+      console.log("successfully saved chat");
+    })
+    .error(function (data) {
+      console.log('Error: ' + data);
+      $scope.showErrorAlert = true;
+      $scope.errorAlert = data[0];
+    });
 
     // clear message box
     $scope.message = '';
@@ -48,8 +71,8 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
   .error(function (err) {
     console.log('Error: ' + err);
   });
-  
 
+  init();
 }]);
 app.factory('socket', function ($rootScope) {
   var socket = io.connect();

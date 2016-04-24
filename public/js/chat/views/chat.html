@@ -1,18 +1,18 @@
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3" ng-init="myEmail = user.email">
     <h3>Messages</h3>
+    {{messages}}
     <form ng-submit='sendMessage()'>
       <div ng-repeat="user in users" ng-if="user.local.email !== myEmail">
         <hr />
         <h4>{{user.local.email}}</h3>
         <div ng-repeat='message in messages'>
-          <ul ng-if="message.recieve === myEmail || message.recieve === user.local.email && message.send === myEmail " style="list-style-type: none;">
+          <ul ng-if="message.send === user.local.email && message.recieve === myEmail || message.send === myEmail && message.recieve === user.local.email" style="list-style-type: none;">
             <li>{{message.send}}: {{message.message}}</li>
           </ul>
         </div>
         <hr />
       </div>
-      {{messages}}
 
       <select ng-model="target">
         <option ng-repeat="user in users" ng-if="user.local.email !== myEmail">{{user.local.email}}</option>

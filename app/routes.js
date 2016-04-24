@@ -1,6 +1,7 @@
 var Thing = require('./models/thing');  // load the thing mongoose model - change as needed
 var User = require('./models/user');  // load the User mongoose model for passport.js authentication
 var twilio = require('twilio');
+var Chat = require('./models/chat');
 
 module.exports = function(app, passport) {
   // api ---------------------------------------------------------------------
@@ -189,5 +190,33 @@ module.exports = function(app, passport) {
       'Content-Type': 'text/xml'
     });
     res.end(resp.toString());
+  });
+
+  //Chat
+  // create chat
+  app.post('/api/chat', function(req, res) {
+          console.log('req body: ' + JSON.stringify(req.body));
+    Chat.create({
+                  send : req.body.send,
+                  message : req.body.message,
+                  recieve : req.body.recieve,
+    }, function(err, chat) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(chat);
+    });
+  });
+
+  // get all chats
+  app.get('/api/chats', function(req, res) {
+    // use mongoose to get all things from the db
+    Chat.find(function(err, chats) {
+      // if err, send it
+      if (err) {
+        res.send(err);
+      }
+      res.json(chats);
+    });
   });
 };
