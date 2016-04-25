@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3" ng-init="myEmail = user.email">
     <h3>Messages</h3>
-    {{messages}}
+    <!--
     <form ng-submit='sendMessage()'>
+
       <div ng-repeat="user in users" ng-if="user.local.email !== myEmail">
         <hr />
         <h4>{{user.local.email}}</h3>
@@ -11,14 +12,94 @@
             <li>{{message.send}}: {{message.message}}</li>
           </ul>
         </div>
-        <hr />
       </div>
+        <hr />
+
 
       <select ng-model="target">
         <option ng-repeat="user in users" ng-if="user.local.email !== myEmail">{{user.local.email}}</option>
       </select>
       <input ng-model='message' />
       <input type='submit', value='Send' />
-      
+      -->
+        
+      <div ng-repeat="user in users" ng-if="user.local.email !== myEmail">
+      <section class="module">
+        <header class="top-bar">
+            <p>{{user.local.email}}</p>
+        </header>
+        <form ng-submit='sendMessage()'>
+        <div class="chat" ng-repeat='message in messages'>
+        <ul class="discussion" ng-if="message.send === user.local.email && message.recieve === myEmail || message.send === myEmail && message.recieve === user.local.email" style="list-style-type: none;">
+          <li class="other">
+            <div class="avatar">
+              <p>{{message.send}}</p>
+            </div>
+            <div class="messages">
+              <p>{{message.message}}</p>
+              <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+            </div>
+          </li>
+      </section>
+      <div class="input">
+        <select ng-model="target">
+          <option ng-repeat="user in users" ng-if="user.local.email !== myEmail">{{user.local.email}}</option>
+        </select>
+        <input type='submit', value='Send' />
+        <div class="input-wrapper">
+          <input class="chat-input" ng-model='message' />
+        </div>
+      </div>
+
+
+          <style>
+
+            .module {
+              border: thin solid black;
+              height: 100%;
+            }
+            .module li {
+              list-style-type: none;
+            }
+            .discussion {
+              padding: 0;
+            }
+            .top-bar {
+              height: 100%;
+            }
+            .chat {
+              overflow: scroll;
+              height: 200px;
+            }
+            .avatar {
+              float: left;
+              border: thin solid black;
+              margin-right: .5em;
+            }
+            .avatar img {
+              width: 100%;
+            }
+            .messages {
+              border-top: thin solid black;
+            }
+            .messages time {
+            }
+            .input {
+            }
+            .input input {
+              float: right;
+            }
+            .input select {
+              float: left;
+            }
+            .input-wrapper {
+              overflow: hidden;
+              display: block;
+              padding: 1;
+            }
+            .chat-input {
+              width: 100%;
+            }
+          </style>
   </div>
 </div>
