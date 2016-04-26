@@ -1,0 +1,41 @@
+{
+  "name": "ng-scroll-glue",
+  "version": "2.0.10",
+  "homepage": "https://github.com/FinalDevStudio/ng-scroll-glue",
+  "authors": [
+    "Santiago G. Marín <santiago@finaldevstudio.com>",
+    "Lukas Wegmann"
+  ],
+  "description": "An AngularJs directive that automatically scrolls to the bottom of an element on changes in it's scope",
+  "main": [
+    "dist/ng-scroll-glue.min.js",
+    "dist/ng-scroll-glue.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FinalDevStudio/ng-scroll-glue.git"
+  },
+  "keywords": [
+    "angular",
+    "module",
+    "scroll",
+    "glue"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "karma.conf.js",
+    "node_modules",
+    "package.json",
+    "gulpfile.js",
+    ".travis.yml",
+    ".gitignore",
+    ".jshintrc",
+    "README.md",
+    "LICENSE",
+    "example",
+    "tests",
+    "*.log",
+    "test",
+    "src"
+  ]
+}

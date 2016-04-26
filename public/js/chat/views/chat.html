@@ -1,105 +1,62 @@
-<div class="row">
-  <div class="col-xs-6 col-xs-offset-3" ng-init="myEmail = user.email">
-    <h3>Messages</h3>
-    <!--
-    <form ng-submit='sendMessage()'>
+    <div id="wrapper">
 
-      <div ng-repeat="user in users" ng-if="user.local.email !== myEmail">
-        <hr />
-        <h4>{{user.local.email}}</h3>
-        <div ng-repeat='message in messages'>
-          <ul ng-if="message.send === user.local.email && message.recieve === myEmail || message.send === myEmail && message.recieve === user.local.email" style="list-style-type: none;">
-            <li>{{message.send}}: {{message.message}}</li>
-          </ul>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Users
+                    </a>
+                </li>
+                <li ng-repeat="user in users" class="sidebar-brand" ng-if="user.local.email !== myEmail">
+                    <a ng-click="chats.push(user.local.email)">{{user.local.email}}</a>
+                </li>
+            </ul>
         </div>
-      </div>
-        <hr />
+        <!-- /#sidebar-wrapper -->
 
-
-      <select ng-model="target">
-        <option ng-repeat="user in users" ng-if="user.local.email !== myEmail">{{user.local.email}}</option>
-      </select>
-      <input ng-model='message' />
-      <input type='submit', value='Send' />
-      -->
-        
-      <div ng-repeat="user in users" ng-if="user.local.email !== myEmail">
-      <section class="module">
-        <header class="top-bar">
-            <p>{{user.local.email}}</p>
-        </header>
-        <form ng-submit='sendMessage()'>
-        <div class="chat" ng-repeat='message in messages'>
-        <ul class="discussion" ng-if="message.send === user.local.email && message.recieve === myEmail || message.send === myEmail && message.recieve === user.local.email" style="list-style-type: none;">
-          <li class="other">
-            <div class="avatar">
-              <p>{{message.send}}</p>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12" ng-init="myEmail = user.email">
+                        <h1>Messages</h1>
+                        <section class="module" ng-repeat="user in chats" ng-if="user !== myEmail">
+                            <header class="top-bar">
+                                <h4><center>{{user}}</center></h4>
+                            </header>
+                                <div class="chat" scroll-glue="glued">
+                                    <ul class="discussion" ng-repeat='message in messages track by $index' ng-if="message.send === user && message.recieve === myEmail || message.send === myEmail && message.recieve === user">
+                                        <li class="other">
+                                            <div class="avatar">
+                                                <p>{{message.send}}</p>
+                                            </div>
+                                            <div class="messages">
+                                                <p>Message: {{message.message}}</p>
+                                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                    <div class="input">
+                                  <form ng-submit='sendMessage(newMessage)' ng-init="newMessage.target = user">
+                                    <div class="input-wrapper">
+                                      <input class="chat-input" ng-model='newMessage.msg' />
+                                      <input type='submit', value='Send' />
+                                    </div>
+                                  </form>
+                            </div>
+                            </div>
+                            </section>
+                         
+                        <!-- 
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    -->
+                    </div>
+                </div>
             </div>
-            <div class="messages">
-              <p>{{message.message}}</p>
-              <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-            </div>
-          </li>
-      </section>
-      <div class="input">
-        <select ng-model="target">
-          <option ng-repeat="user in users" ng-if="user.local.email !== myEmail">{{user.local.email}}</option>
-        </select>
-        <input type='submit', value='Send' />
-        <div class="input-wrapper">
-          <input class="chat-input" ng-model='message' />
         </div>
-      </div>
+        <!-- /#page-content-wrapper -->
 
-
-          <style>
-
-            .module {
-              border: thin solid black;
-              height: 100%;
-            }
-            .module li {
-              list-style-type: none;
-            }
-            .discussion {
-              padding: 0;
-            }
-            .top-bar {
-              height: 100%;
-            }
-            .chat {
-              overflow: scroll;
-              height: 200px;
-            }
-            .avatar {
-              float: left;
-              border: thin solid black;
-              margin-right: .5em;
-            }
-            .avatar img {
-              width: 100%;
-            }
-            .messages {
-              border-top: thin solid black;
-            }
-            .messages time {
-            }
-            .input {
-            }
-            .input input {
-              float: right;
-            }
-            .input select {
-              float: left;
-            }
-            .input-wrapper {
-              overflow: hidden;
-              display: block;
-              padding: 1;
-            }
-            .chat-input {
-              width: 100%;
-            }
-          </style>
-  </div>
-</div>
+    </div>
+    <!-- /#wrapper -->

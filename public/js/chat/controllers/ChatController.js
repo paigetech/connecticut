@@ -1,7 +1,10 @@
 app.controller('ChatController', ['$scope', '$http', '$window', 'socket', function($scope, $http, $window, socket) {
 
+  $scope.newMessage = {};
+  $scope.chats = [];
   $scope.messages = [];
   init = function() {
+
     $http.get("/api/chats").success(function (data) {
       //add if
       //hide super secret back door - q5
@@ -14,12 +17,6 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
     });
   };
 
-  $scope.submit = function(thing) {
-    console.log("angular submit");
-    //add logic for saving chat
-  }
-
-  //do the user connection via routes?
   //
   // Socket listeners
   // ================
@@ -31,7 +28,7 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
 
   socket.on('chat message', function (message) {
     $scope.messages.push(message);
-    console.log(" socekt message: " + message);
+    console.log(" socekt message: " + JSON.stringify(message));
   });
 
 
@@ -39,12 +36,12 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
   // ==============================
 
 
-  $scope.sendMessage = function () {
-    console.log("message: " + $scope.message);
+  $scope.sendMessage = function (newMessage) {
+    console.log("message: " + newMessage.msg);
     this_message = {
       send: $scope.user.email,
-      message: $scope.message,
-      recieve: $scope.target
+      message: newMessage.msg,
+      recieve: newMessage.target
     }
     socket.emit('chat message', this_message );
 
@@ -60,7 +57,8 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
     });
 
     // clear message box
-    $scope.message = '';
+    $scope.newMessage.msg = '';
+
   };
 
   //grabbing users
