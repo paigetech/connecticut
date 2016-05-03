@@ -36,12 +36,13 @@ app.controller('ChatController', ['$scope', '$http', '$window', 'socket', functi
   // ==============================
 
 
-  $scope.sendMessage = function (newMessage) {
-    console.log("message: " + newMessage.msg);
+
+  $scope.sendMessage = function (target) {
+    console.log("message: " + $scope.newMessage.msg);
     this_message = {
       send: $scope.user.email,
-      message: newMessage.msg,
-      recieve: newMessage.target
+      message: $scope.newMessage.msg,
+      recieve: target
     }
     socket.emit('chat message', this_message );
 

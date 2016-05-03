@@ -21,6 +21,7 @@
                 <div class="row">
                     <div class="col-lg-12" ng-init="myEmail = user.email">
                         <h1>Messages</h1>
+                        <p>Target: {{newMessage.target}}</p>
                         <section class="module" ng-repeat="user in chats" ng-if="user !== myEmail">
                             <header class="top-bar">
                                 <h4><center>{{user}}</center></h4>
@@ -39,7 +40,7 @@
                                     </ul>
                                 </div>
                                     <div class="input">
-                                  <form ng-submit='sendMessage(newMessage)' ng-init="newMessage.target = user">
+                                  <form ng-submit='sendMessage(user)' >
                                     <div class="input-wrapper">
                                       <input class="chat-input" ng-model='newMessage.msg' />
                                       <input type='submit', value='Send' />
